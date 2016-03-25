@@ -3,14 +3,58 @@ Minimal character-level Vanilla RNN model. Written by Andrej Karpathy (@karpathy
 BSD License
 """
 import numpy as np
-import sys
+import sys, time
 
-filename = ''
-if len(sys.argv) > 1:
-    filename = sys.argv[1]
-else:
-    filename = 'texts/kidjokes.txt'
+def printOptions():
+  # quick commands to help out
+  print 'Comp Ling Neural Network'
+  print '~~~~~~~~~~~~~~~~~~~~~~~~~'
+  print ''
+  print '1) "What is a Rose" (Romeo and Juliet) - William Shakespeare'
+  print '2) "Stopping By Woods on a Snowy Evening" - Robert Frost'
+  print '3) Some jokes made by kids'
+  print '4) Mitch Hedberg one-liners'
+  print '5) Custom Text (whatever is in the "input.txt" file'
 
+  choice = raw_input('\n> ')
+  if (choice is '1' or 
+      choice is '2' or 
+      choice is '3' or 
+      choice is '4' or 
+      choice is '5'):
+    return choice
+  else:
+    print '\nInput not recognized. Try again.\n'
+    return printOptions()
+
+def displayOption(option):
+  print '\nYou chose "' + option + '" -- initializing...\n'
+  time.sleep(2)
+
+
+def getFileName(choice):
+  if   (choice is '1'):  
+    displayOption('What is a Rose')
+    return 'texts/whatisarose.txt'
+
+  elif (choice is '2'):  
+    displayOption('Stopping By Woods on a Snowy Evening')
+    return 'texts/stoppingbywoods.txt'
+
+  elif (choice is '3'):  
+    displayOption('Some jokes made by kids')
+    return 'texts/kidjokes.txt'
+  
+  elif (choice is '4'):  
+    displayOption('Mitch Hedberg one-liners')
+    return 'texts/mitch_hedberg.txt'
+  
+  elif (choice is '5'):  
+    displayOption('Custom Text')
+    return 'input.txt'
+
+choice = printOptions()
+filename = getFileName(choice)
 
 # data I/O
 data = open(filename, 'r').read() # should be simple plain text file
